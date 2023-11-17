@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+int count(vector<int>& coins, int n, int sum,
+		vector<vector<int> >& dp)
+{
+	if (sum == 0)
+		return dp[n][sum] = 1;
+	if (n == 0 || sum < 0)
+		return 0;
+	if (dp[n][sum] != -1)
+		return dp[n][sum];
+	return dp[n][sum]
+		= count(coins, n, sum - coins[n - 1], dp)
+			+ count(coins, n - 1, sum, dp);
+}
+int32_t main()
+{
+	int tc = 1;
+	while (tc--) {
+		int n, sum;
+		n = 4, sum = 15;
+		vector<int> coins = { 2,3,5,10 };
+		vector<vector<int> > dp(n + 1,
+								vector<int>(sum + 1, -1));
+		int res = count(coins, n, sum, dp);
+		cout << res << endl;
+	}
+}
